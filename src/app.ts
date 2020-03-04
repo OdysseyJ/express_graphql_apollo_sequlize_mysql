@@ -44,8 +44,8 @@ app.listen({ port: ENV.PORT }, async () => {
   console.log(
     `🚀 Server ready at http://localhost:${ENV.PORT}${server.graphqlPath}`
   );
-  let err;
-  [err] = await to(Promise.resolve().then(() => sequelize.sync()));
+  let err: any;
+  [err] = await to(Promise.resolve(sequelize.sync()));
 
   if (err) {
     console.log(err);
