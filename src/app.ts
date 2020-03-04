@@ -3,7 +3,6 @@ import * as jwt from "express-jwt";
 import { ApolloServer } from "apollo-server-express";
 import { sequelize } from "./models";
 import { ENV } from "./config";
-
 import { resolver as resolvers, schema, schemaDirectives } from "./graphql";
 import { createContext, EXPECTED_OPTIONS_KEY } from "dataloader-sequelize";
 import to from "await-to-js";
@@ -46,7 +45,7 @@ app.listen({ port: ENV.PORT }, async () => {
     `🚀 Server ready at http://localhost:${ENV.PORT}${server.graphqlPath}`
   );
   let err;
-  [err] = await to(sequelize.sync());
+  [err] = await to(Promise.resolve().then(() => sequelize.sync()));
 
   if (err) {
     console.log(err);
