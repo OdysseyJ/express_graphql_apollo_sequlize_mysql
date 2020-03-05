@@ -8,17 +8,18 @@ type User {
 }
 
 input UserInput {
-    email: String
-    password: String
-    firstName: String
-    lastName: String
+  email: String
+  password: String
+  firstName: String
+  lastName: String
 }
 
 type Query {
-   getUser: User @isAuth
-   loginUser(email: String!, password: String!): User
+  getUser: User @isAuth
+  getUserTest(email: String!): User
+  loginUser(email: String!, password: String!): User
 }
 
 type Mutation {
-   createUser(data: UserInput): User
+  createUser(data: UserInput): User
 }

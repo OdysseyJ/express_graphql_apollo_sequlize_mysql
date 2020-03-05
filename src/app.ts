@@ -1,5 +1,6 @@
 import * as express from "express";
 import * as jwt from "express-jwt";
+import * as cors from "cors";
 import { ApolloServer } from "apollo-server-express";
 import { sequelize } from "./models";
 import { ENV } from "./config";
@@ -9,11 +10,13 @@ import to from "await-to-js";
 
 const app = express();
 
-const authMiddleware = jwt({
-  secret: ENV.JWT_ENCRYPTION,
-  credentialsRequired: false
-});
-app.use(authMiddleware);
+app.use(cors());
+
+// const authMiddleware = jwt({
+//   secret: ENV.JWT_ENCRYPTION,
+//   credentialsRequired: false
+// });
+// app.use(authMiddleware);
 
 app.use(function(err, req, res, next) {
   const errorObject = { error: true, message: `${err.name}: ${err.message}` };
@@ -22,6 +25,7 @@ app.use(function(err, req, res, next) {
   } else {
     return res.status(400).json(errorObject);
   }
+  next();
 });
 
 const server = new ApolloServer({
